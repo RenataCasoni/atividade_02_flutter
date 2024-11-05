@@ -19,4 +19,19 @@ class ItemService {
       throw Exception('Erro ao carregar itens');
     }
   }
+
+  Future<void> addItem(String name, String description) async {
+    final response = await client.post(
+      Uri.parse(apiUrl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        'name': name,
+        'description': description,
+      }),
+    );
+
+    if (response.statusCode != 201) {
+      throw Exception('Erro ao adicionar item');
+    }
+  }
 }
